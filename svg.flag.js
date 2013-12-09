@@ -2,8 +2,9 @@
 SVG.Flag = function(size, options) {
 
   this.constructor.call(this, SVG.create('svg'));
+  var width = window.clientWidth ||500, height = window.clientHeight||500;
 
- this.viewbox(0, 0, 500, 500);
+ this.viewbox('0', '0',width , height);
 
   this.size(size, size);
 
@@ -17,19 +18,41 @@ SVG.Flag = function(size, options) {
  stop.at({ offset: '66.6', color: 'rgb(19,136,8)', opacity: 1 })
 
 
-})
+});
 grad.from('0', '0').to('0', '100')
-  var flagPath = this.group()
-                  .add(this.path(flagString)
-                  .stroke({ width: 2 })).move(150,50)
 
-//alert(this.flagPath.bbox())
+var flagPath = this.path(flagString)
+                   .stroke({ width: 1.2 })
 
-//flagPath.attr({'fill' : grad.fill()})
-//var draw = SVG("canvas1").rect(100,100).attr({'fill' : this.gradient.fill()})
+var flagGroup = this.group()
+                  .add(flagPath);
+
+flagGroup.attr({'fill' : grad.fill()});
 
 
+ var emblem  = this.group();
+  var wheel = this.group()
+                  .add(this.circle(50).fill("#008").center(50,50))
+                  .add(this.circle(45).fill("white").center(50,50))
+                  .add(this.circle(10).fill("#008").center(50,50));
 
+  emblem.add(wheel)
+
+ var spokes = this.group()
+
+for (var i = 0; i < 24 ; i++){
+    var spoke = this.group()
+      .add(this.polygon('0,2 1.0,11 0,22 -1.0,11').fill("#008"))
+      .add(this.circle(2.3).fill("#008").move(-4.3,21.3))
+      .rotate(i*15)
+      .move(50,50);
+      spokes.add(spoke)
+}
+
+emblem.add(spokes).transform({scaleX :5, scaleY :5})
+
+var x = flagPath.bbox();
+alert([x.width,x.height] )
 
 }
 

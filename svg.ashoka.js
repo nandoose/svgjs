@@ -29,7 +29,19 @@ for (var i = 0; i < 24 ; i++){
 emblem.add(spokes)
 emblem.animate(3000).rotate(100)
 
+var grad = this.gradient('linear', function(stop) {
+  stop.at({ offset: '33.3', color: 'rgb(255,131,51)', opacity: 1 })
+  stop.at({ offset: '33.3', color: 'white', opacity: 1 })
+   stop.at({ offset: '66.6', color: 'white', opacity: 1 })
+ stop.at({ offset: '66.6', color: 'rgb(19,136,8)', opacity: 1 })
 
+
+});
+
+
+grad.from('0', '0').to('0', '100');
+
+emblem.attr({'fill' : grad.fill()})
 
 }
 
