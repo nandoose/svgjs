@@ -18,25 +18,23 @@ SVG.Flag = function(size, options) {
  stop.at({ offset: '66.6', color: 'rgb(19,136,8)', opacity: 1 })
 
 
-});
-grad.from('0', '0').to('0', '100')
+}).from('0', '0').to('0', '100');
 
-var flagPath = this.path(flagString)
-                   .stroke({ width: 1.2 })
+
+
 
 var flagGroup = this.group()
-                  .add(flagPath);
-
-flagGroup.attr({'fill' : grad.fill()});
-
+                  .add(this.path(flagString)
+                      .stroke({ width: 0.2 }))
+                  .attr({'fill' : grad.fill()});
 
  var emblem  = this.group();
-  var wheel = this.group()
-                  .add(this.circle(50).fill("#008").center(50,50))
-                  .add(this.circle(45).fill("white").center(50,50))
-                  .add(this.circle(10).fill("#008").center(50,50));
 
-  emblem.add(wheel)
+
+  emblem.add(this.group()
+                               .add(this.circle(50).fill("#008").center(50,50))
+                               .add(this.circle(45).fill("white").center(50,50))
+                               .add(this.circle(10).fill("#008").center(50,50)));
 
  var spokes = this.group()
 
@@ -49,10 +47,11 @@ for (var i = 0; i < 24 ; i++){
       spokes.add(spoke)
 }
 
-emblem.add(spokes).transform({scaleX :5, scaleY :5})
+emblem.add(spokes).transform({scaleX :2.3, scaleY :2.3}).move(-85,87)
 
-var x = flagPath.bbox();
-alert([x.width,x.height] )
+flagGroup.add(emblem).draggable();
+
+
 
 }
 
